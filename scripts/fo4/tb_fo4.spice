@@ -1,0 +1,143 @@
+**.subckt tb_fo4 out7 out6 out8 out9 out3 out2 out1
+*.opin out7
+*.opin out6
+*.opin out8
+*.opin out9
+*.opin out3
+*.opin out2
+*.opin out1
+V1 VSS GND 0
+V2 VDD GND 1.8
+V3 vin GND DC 0 PULSE(0 1.8 0 80.9315ps 80.9315ps 1ns 2ns 0)
+
+
+x1 VDD out1 net1 VSS inverter
+x2 VDD out2 net1 VSS inverter
+x3 VDD out3 net1 VSS inverter
+x4 VDD net1 vin VSS inverter
+x5 VDD out net1 VSS inverter
+x6 VDD out6 out VSS inverter
+x7 VDD out7 out VSS inverter
+x8 VDD out8 out VSS inverter
+x9 VDD out9 out VSS inverter
+**** begin user architecture code
+
+
+
+.param pp = 3.27
+.param pn = 0.42
+
+********************************
+* Control section
+********************************
+.control
+
+* Voltage values to calculate rise and fall times
+let v_steady = 1.8
+let per10 = v_steady * 0.1
+let per90 = v_steady * 0.9
+let per50 = v_steady * 0.5
+
+* These limits are based on the design of a standard cell of 12 tracks.
+let wp_max = 3.27
+let wn_min = 0.42
+let wp_min = 0.42
+
+* Initialization of variables and size of iteration.
+let delta_w = 0.005
+let wp = wp_max
+let wn = wn_min
+let loop = 0
+
+* These vector will be used to save the data of each iteration.
+let loops = (wp_max-wp_min)/delta_w
+let wpv = unitvec($&loops)
+let wnv = unitvec($&loops)
+let trv = unitvec($&loops)
+let tfv = unitvec($&loops)
+
+* Start loop
+while wp ge wp_min
+
+* Modify widths
+  echo
+  echo ********************************** Cycle $&loop **********************************
+  echo
+  alterparam pp = $&wp
+  reset
+  alterparam pn = $&wn
+  reset
+
+* Run transient analysis
+  TRAN 1p 6n $ 3 periods
+
+* Find rise and fall times
+  echo
+  meas  TRAN  t_rise  TRIG  v(out) VAL=per10 RISE=2  TARG v(out)  VAL=per90 RISE=2
+  meas  TRAN  t_fall  TRIG  v(out) VAL=per90 FALL=2  TARG v(out)  VAL=per10 FALL=2
+  echo Wn: $&wn
+  echo Wp: $&wp
+  echo
+
+* Save widths, t_rise, t_fall in vectors
+  let wnv[loop] = wn
+  let wpv[loop] = wp
+  let trv[loop] = t_rise
+  let tfv[loop] = t_fall
+
+* Modify widths
+  let wn = wn + delta_w
+  let wp = wp - delta_w
+
+* Counter increment
+  let loop = loop + 1
+
+end
+
+echo
+echo ********************************** End of Simulation **********************************
+echo
+
+* Export vector data into raw file
+write data_VACIO.raw wnv wpv trv tfv
+
+* Plot both rise and fall times vs. NMOS widths
+* plot trv vs wnv, tfv vs wnv
+.endc
+
+
+
+
+
+.lib /home/nelson/cad/share/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice VACIO
+
+.param mc_mm_switch=0
+.param mc_pr_switch=1
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  inverter.sym # of pins=4
+* sym_path:
+*+ /home/nelson/myreps/obsidian-vault/projects/circuits/std-cell-lib/optimal-ws/inverter.sym
+* sch_path:
+*+ /home/nelson/myreps/obsidian-vault/projects/circuits/std-cell-lib/optimal-ws/inverter.sch
+.subckt inverter  vdd out in vss
+*.opin out
+*.ipin in
+*.iopin vdd
+*.iopin vss
+XM1 out in vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W=pp nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM2 out in vss vss sky130_fd_pr__nfet_01v8 L=0.15 W=pn nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+.ends
+
+.GLOBAL VSS
+.GLOBAL VDD
+.GLOBAL GND
+** flattened .save nodes
+.end

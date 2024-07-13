@@ -1,0 +1,79 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO thesis_nor2
+  CLASS CORE ;
+  FOREIGN thesis_nor2 ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 2.300 BY 4.800 ;
+  PIN A1
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.553500 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.545 1.270 1.055 1.935 ;
+    END
+  END A1
+  PIN B1
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.553500 ;
+    PORT
+      LAYER li1 ;
+        RECT 1.565 1.270 2.075 1.940 ;
+    END
+  END B1
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    ANTENNADIFFAREA 1.512900 ;
+    PORT
+      LAYER li1 ;
+        RECT 1.830 2.340 2.000 4.540 ;
+        RECT 1.225 2.170 2.000 2.340 ;
+        RECT 1.225 0.930 1.395 2.170 ;
+        RECT 1.225 0.260 1.450 0.930 ;
+    END
+  END Y
+  PIN VPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER nwell ;
+        RECT -0.190 1.575 2.490 4.990 ;
+      LAYER li1 ;
+        RECT 0.000 4.715 2.300 4.885 ;
+        RECT 0.180 2.200 1.010 4.715 ;
+      LAYER mcon ;
+        RECT 0.145 4.715 0.315 4.885 ;
+        RECT 0.605 4.715 0.775 4.885 ;
+        RECT 1.065 4.715 1.235 4.885 ;
+        RECT 1.525 4.715 1.695 4.885 ;
+        RECT 1.985 4.715 2.155 4.885 ;
+      LAYER met1 ;
+        RECT 0.000 4.600 2.300 5.000 ;
+    END
+  END VPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER li1 ;
+        RECT 0.180 0.085 0.860 0.930 ;
+        RECT 1.825 0.085 2.000 0.930 ;
+        RECT 0.000 -0.085 2.300 0.085 ;
+      LAYER mcon ;
+        RECT 0.145 -0.085 0.315 0.085 ;
+        RECT 0.605 -0.085 0.775 0.085 ;
+        RECT 1.065 -0.085 1.235 0.085 ;
+        RECT 1.525 -0.085 1.695 0.085 ;
+        RECT 1.985 -0.085 2.155 0.085 ;
+      LAYER met1 ;
+        RECT 0.000 -0.200 2.300 0.200 ;
+    END
+  END VGND
+END thesis_nor2
+END LIBRARY
+

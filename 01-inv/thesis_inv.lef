@@ -1,0 +1,65 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO thesis_inv
+  CLASS CORE ;
+  FOREIGN thesis_inv ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 1.840 BY 4.800 ;
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.553500 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.390 1.100 1.065 2.300 ;
+    END
+  END A
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    ANTENNADIFFAREA 1.642050 ;
+    PORT
+      LAYER li1 ;
+        RECT 1.260 0.260 1.600 4.525 ;
+    END
+  END Y
+  PIN VPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER nwell ;
+        RECT -0.190 1.570 2.030 4.990 ;
+      LAYER li1 ;
+        RECT 0.000 4.715 1.840 4.885 ;
+        RECT 0.315 4.525 1.010 4.715 ;
+        RECT 0.315 2.510 0.930 4.525 ;
+      LAYER mcon ;
+        RECT 0.145 4.715 0.315 4.885 ;
+        RECT 0.605 4.715 0.775 4.885 ;
+        RECT 1.065 4.715 1.235 4.885 ;
+        RECT 1.525 4.715 1.695 4.885 ;
+      LAYER met1 ;
+        RECT 0.000 4.600 1.840 5.000 ;
+    END
+  END VPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER li1 ;
+        RECT 0.315 0.085 1.010 0.865 ;
+        RECT 0.000 -0.085 1.840 0.085 ;
+      LAYER mcon ;
+        RECT 0.145 -0.085 0.315 0.085 ;
+        RECT 0.605 -0.085 0.775 0.085 ;
+        RECT 1.065 -0.085 1.235 0.085 ;
+        RECT 1.525 -0.085 1.695 0.085 ;
+      LAYER met1 ;
+        RECT 0.000 -0.200 1.840 0.200 ;
+    END
+  END VGND
+END thesis_inv
+END LIBRARY
+

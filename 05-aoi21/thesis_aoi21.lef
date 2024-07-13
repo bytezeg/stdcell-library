@@ -1,0 +1,100 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO thesis_aoi21
+  CLASS CORE ;
+  FOREIGN thesis_aoi21 ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 3.220 BY 4.800 ;
+  PIN A1
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.553500 ;
+    PORT
+      LAYER li1 ;
+        RECT 0.395 1.270 0.905 2.015 ;
+    END
+  END A1
+  PIN A2
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.553500 ;
+    PORT
+      LAYER li1 ;
+        RECT 1.435 1.270 1.945 2.015 ;
+    END
+  END A2
+  PIN B1
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    ANTENNAGATEAREA 0.553500 ;
+    PORT
+      LAYER li1 ;
+        RECT 2.455 1.270 2.965 2.015 ;
+    END
+  END B1
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    ANTENNADIFFAREA 1.617650 ;
+    PORT
+      LAYER li1 ;
+        RECT 2.640 2.355 2.810 4.545 ;
+        RECT 2.115 2.185 2.810 2.355 ;
+        RECT 2.115 1.060 2.285 2.185 ;
+        RECT 2.020 0.890 2.285 1.060 ;
+        RECT 2.020 0.255 2.190 0.890 ;
+    END
+  END Y
+  PIN VPWR
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER nwell ;
+        RECT -0.190 1.575 3.410 4.990 ;
+      LAYER li1 ;
+        RECT 0.000 4.715 3.220 4.885 ;
+        RECT 0.290 2.835 0.460 4.715 ;
+        RECT 1.245 2.910 1.575 4.715 ;
+      LAYER mcon ;
+        RECT 0.145 4.715 0.315 4.885 ;
+        RECT 0.605 4.715 0.775 4.885 ;
+        RECT 1.065 4.715 1.235 4.885 ;
+        RECT 1.525 4.715 1.695 4.885 ;
+        RECT 1.985 4.715 2.155 4.885 ;
+        RECT 2.445 4.715 2.615 4.885 ;
+        RECT 2.905 4.715 3.075 4.885 ;
+      LAYER met1 ;
+        RECT 0.000 4.600 3.220 5.000 ;
+    END
+  END VPWR
+  PIN VGND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER li1 ;
+        RECT 0.290 0.085 0.930 0.950 ;
+        RECT 2.490 0.085 2.920 0.855 ;
+        RECT 0.000 -0.085 3.220 0.085 ;
+      LAYER mcon ;
+        RECT 0.145 -0.085 0.315 0.085 ;
+        RECT 0.605 -0.085 0.775 0.085 ;
+        RECT 1.065 -0.085 1.235 0.085 ;
+        RECT 1.525 -0.085 1.695 0.085 ;
+        RECT 1.985 -0.085 2.155 0.085 ;
+        RECT 2.445 -0.085 2.615 0.085 ;
+        RECT 2.905 -0.085 3.075 0.085 ;
+      LAYER met1 ;
+        RECT 0.000 -0.200 3.220 0.200 ;
+    END
+  END VGND
+  OBS
+      LAYER li1 ;
+        RECT 0.700 2.695 0.870 4.545 ;
+        RECT 2.015 2.695 2.185 4.545 ;
+        RECT 0.700 2.525 2.185 2.695 ;
+  END
+END thesis_aoi21
+END LIBRARY
+
